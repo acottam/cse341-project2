@@ -5,7 +5,7 @@ const doc = {
     title: 'CSE341 Project 2 API',
     description: 'API for CSE341 Project 2',
   },
-  host: 'localhost:3000',
+  host: 'cse341-project-1-bo77.onrender.com',
   schemes: ['http', 'https'],
 };
 
