@@ -5,7 +5,7 @@
     "description": "API for CSE341 Project 2",
     "version": "1.0.0"
   },
-  "host": "cse341-project-1-bo77.onrender.com:3000",
+  "host": "cse341-project-1-bo77.onrender.com",
   "basePath": "/",
   "schemes": [
     "https"
