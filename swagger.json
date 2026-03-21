@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "CSE341 Project 2 API",
-    "description": "API for CSE341 Project 2",
+    "description": "API for exploring National Parks and Activities",
     "version": "1.0.0"
   },
   "host": "cse341-project-1-bo77.onrender.com",
@@ -14,9 +14,9 @@
     "/": {
       "get": {
         "tags": [
-          "Hello World"
+          "Welcome"
         ],
-        "description": "",
+        "description": "Welcome endpoint for the National Parks and Activities API",
         "responses": {
           "200": {
             "description": "OK"
