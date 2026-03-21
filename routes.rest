@@ -36,3 +36,42 @@ Content-Type: application/json
 
 ### DELETE a park
 DELETE http://localhost:3000/parks/69be1d2d09921380a2166e09 HTTP/1.1
+
+###
+# ACTIVITIES
+###
+
+### GET all activities
+GET http://localhost:3000/activities
+
+### GET a single activity by ID
+GET http://localhost:3000/activities/69be1d2d09921380a2166e10
+
+### CREATE a new activity
+POST http://localhost:3000/activities HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "Hiking",
+  "description": "Explore miles of trails through old-growth forests and volcanic landscapes.",
+  "parkCode": "crla",
+  "duration": "2-4 hours",
+  "difficulty": "Moderate",
+  "season": "Summer"
+}
+
+### UPDATE an activity
+PUT http://localhost:3000/activities/69be1d2d09921380a2166e10 HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "Hiking",
+  "description": "Explore miles of trails through old-growth forests and volcanic landscapes.",
+  "parkCode": "crla",
+  "duration": "2-4 hours",
+  "difficulty": "Moderate",
+  "season": "Summer"
+}
+
+### DELETE an activity
+DELETE http://localhost:3000/activities/69be1d2d09921380a2166e10 HTTP/1.1

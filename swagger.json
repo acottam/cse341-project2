@@ -36,6 +36,9 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       },
@@ -80,6 +83,9 @@
           "201": {
             "description": "Created"
           },
+          "400": {
+            "description": "Validation Error"
+          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -107,8 +113,14 @@
           "200": {
             "description": "OK"
           },
+          "400": {
+            "description": "Invalid ID"
+          },
           "404": {
             "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       },
@@ -159,6 +171,9 @@
           "200": {
             "description": "OK"
           },
+          "400": {
+            "description": "Validation Error / Invalid ID"
+          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -180,6 +195,184 @@
         "responses": {
           "204": {
             "description": "No Content"
+          },
+          "400": {
+            "description": "Invalid ID"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/activities/": {
+      "get": {
+        "tags": [
+          "Activities"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Activities"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "example": "Hiking"
+                },
+                "description": {
+                  "example": "Explore miles of trails through old-growth forests and volcanic landscapes."
+                },
+                "parkCode": {
+                  "example": "crla"
+                },
+                "duration": {
+                  "example": "2-4 hours"
+                },
+                "difficulty": {
+                  "example": "Moderate"
+                },
+                "season": {
+                  "example": "Summer"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Validation Error"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/activities/{id}": {
+      "get": {
+        "tags": [
+          "Activities"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid ID"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Activities"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "example": "Hiking"
+                },
+                "description": {
+                  "example": "Explore miles of trails through old-growth forests and volcanic landscapes."
+                },
+                "parkCode": {
+                  "example": "crla"
+                },
+                "duration": {
+                  "example": "2-4 hours"
+                },
+                "difficulty": {
+                  "example": "Moderate"
+                },
+                "season": {
+                  "example": "Summer"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Validation Error / Invalid ID"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Activities"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Invalid ID"
           },
           "500": {
             "description": "Internal Server Error"
