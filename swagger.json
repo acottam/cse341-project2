@@ -1,0 +1,191 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "CSE341 Project 2 API",
+    "description": "API for CSE341 Project 2",
+    "version": "1.0.0"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "tags": [
+          "Hello World"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/parks/": {
+      "get": {
+        "tags": [
+          "Parks"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Parks"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "description": {
+                  "example": "Crater Lake inspires awe."
+                },
+                "fullName": {
+                  "example": "Crater Lake National Park"
+                },
+                "latLong": {
+                  "example": "lat:42.94065854, long:-122.1338414"
+                },
+                "latitude": {
+                  "example": "42.94065854"
+                },
+                "longitude": {
+                  "example": "-122.1338414"
+                },
+                "parkCode": {
+                  "example": "crla"
+                },
+                "url": {
+                  "example": "https://www.nps.gov/crla/index.htm"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/parks/{id}": {
+      "get": {
+        "tags": [
+          "Parks"
+        ],
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Parks"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "description": {
+                  "example": "Crater Lake inspires awe."
+                },
+                "fullName": {
+                  "example": "Crater Lake National Park"
+                },
+                "latLong": {
+                  "example": "lat:42.94065854, long:-122.1338414"
+                },
+                "latitude": {
+                  "example": "42.94065854"
+                },
+                "longitude": {
+                  "example": "-122.1338414"
+                },
+                "parkCode": {
+                  "example": "crla"
+                },
+                "url": {
+                  "example": "https://www.nps.gov/crla/index.htm"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Parks"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  }
+}
