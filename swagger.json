@@ -214,6 +214,15 @@
         "produces": [
           "application/json"
         ],
+        "parameters": [
+          {
+            "name": "parkCode",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "description": "Filter activities by park code (e.g. crla, yell, yose)"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"

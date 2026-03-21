@@ -15,7 +15,11 @@ const validateActivity = (body) => {
 const getAll = async (req, res) => {
     // swagger.tags = ['Activities']
     try {
-        const result = await mongodb.getDatabase().collection('activities').find().toArray();
+        const filter = {};
+        if (req.query.parkCode) {
+            filter.parkCode = req.query.parkCode;
+        }
+        const result = await mongodb.getDatabase().collection('activities').find(filter).toArray();
         res.setHeader('Content-Type', 'application/json');
         res.status(200).json(result);
     } catch (err) {
