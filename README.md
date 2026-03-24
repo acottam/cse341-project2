@@ -23,9 +23,9 @@ https://cse341-project-1-bo77.onrender.com/api-docs
 **Endpoints:**
 - `GET /parks` — Get all parks
 - `GET /parks/:id` — Get a single park
-- `POST /parks` — Create a park
-- `PUT /parks/:id` — Update a park
-- `DELETE /parks/:id` — Delete a park
+- `POST /parks` — Create a park 🔒
+- `PUT /parks/:id` — Update a park 🔒
+- `DELETE /parks/:id` — Delete a park 🔒
 
 ### Activities
 | Field | Type | Example |
@@ -41,9 +41,17 @@ https://cse341-project-1-bo77.onrender.com/api-docs
 - `GET /activities` — Get all activities
 - `GET /activities?parkCode=crla` — Filter activities by park
 - `GET /activities/:id` — Get a single activity
-- `POST /activities` — Create an activity
-- `PUT /activities/:id` — Update an activity
-- `DELETE /activities/:id` — Delete an activity
+- `POST /activities` — Create an activity 🔒
+- `PUT /activities/:id` — Update an activity 🔒
+- `DELETE /activities/:id` — Delete an activity 🔒
+
+## Authentication
+
+This API uses **GitHub OAuth** via Passport.js for authentication. Routes marked with 🔒 require login.
+
+- `GET /auth/login` — Redirects to GitHub for OAuth login
+- `GET /auth/callback` — GitHub OAuth callback
+- `GET /auth/logout` — Logs out and destroys the session
 
 ## Setup
 ```bash
@@ -55,4 +63,8 @@ Requires a `.env` file with:
 ```
 MONGODB_URI=<your-mongodb-connection-string>
 PORT=3000
+SESSION_SECRET=<your-session-secret>
+GITHUB_CLIENT_ID=<your-github-client-id>
+GITHUB_CLIENT_SECRET=<your-github-client-secret>
+GITHUB_CALLBACK_URL=<your-callback-url>
 ```
