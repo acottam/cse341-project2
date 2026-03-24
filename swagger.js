@@ -6,7 +6,15 @@ const doc = {
     description: 'API for exploring National Parks and Activities',
   },
   host: 'cse341-project-1-bo77.onrender.com',
-  schemes: ['http', 'https'],
+  schemes: ['https'],
+  securityDefinitions: {
+    Bearer: {
+      type: 'apiKey',
+      name: 'Authorization',
+      in: 'header',
+      description: 'Enter your bearer token in the format: Bearer <token>'
+    }
+  }
 };
 
 const outputFile = './swagger.json';

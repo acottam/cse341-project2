@@ -7,6 +7,7 @@ router.get('/', (req, res) => {
     res.send('Welcome to the National Parks and Activities API');
 });
 
+router.use('/auth', require('./auth'));
 router.use('/parks', require('./parks'));
 router.use('/activities', require('./activities'));
 
