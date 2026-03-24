@@ -1,10 +1,22 @@
 const express = require('express');
 const router = express.Router();
-const authController = require('../controllers/auth');
-const { isAuthenticated } = require('../middleware/auth');
+const passport = require('passport');
 
-router.post('/register', authController.register);
-router.post('/login', authController.login);
-router.post('/logout', isAuthenticated, authController.logout);
+router.get('/login', passport.authenticate('github', { scope: ['user:email'] }));
+
+router.get('/callback',
+  passport.authenticate('github', { failureRedirect: '/' }),
+  (req, res) => {
+    res.redirect('/');
+  }
+);
+
+router.get('/logout', (req, res, next) => {
+  req.logout((err) => {
+    if (err) return next(err);
+    req.session.destroy();
+    res.redirect('/');
+  });
+});
 
 module.exports = router;

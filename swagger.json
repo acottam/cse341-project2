@@ -2,92 +2,46 @@
   "swagger": "2.0",
   "info": {
     "title": "CSE341 Project 2 API",
-    "description": "API for exploring National Parks and Activities",
+    "description": "API for exploring National Parks and Activities. Authentication is handled via GitHub OAuth. Visit /auth/login to authenticate.",
     "version": "1.0.0"
   },
   "host": "cse341-project-1-bo77.onrender.com",
   "basePath": "/",
   "schemes": ["https"],
-  "securityDefinitions": {
-    "Bearer": {
-      "type": "apiKey",
-      "name": "Authorization",
-      "in": "header",
-      "description": "Enter your bearer token in the format: Bearer <token>"
-    }
-  },
   "paths": {
     "/": {
       "get": {
         "tags": ["Welcome"],
-        "description": "Welcome endpoint for the National Parks and Activities API",
+        "description": "Welcome endpoint. Shows login status and link to GitHub OAuth login.",
         "responses": {
           "200": { "description": "OK" }
         }
       }
     },
-    "/auth/register": {
-      "post": {
+    "/auth/login": {
+      "get": {
         "tags": ["Auth"],
-        "description": "Create a new user account. Passwords are hashed with bcrypt before storage.",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "required": ["username", "password"],
-              "properties": {
-                "username": { "type": "string", "example": "johndoe" },
-                "password": { "type": "string", "example": "securePassword123" }
-              }
-            }
-          }
-        ],
+        "description": "Redirects to GitHub for OAuth authentication.",
         "responses": {
-          "201": { "description": "User created successfully" },
-          "400": { "description": "Missing username or password" },
-          "409": { "description": "Username already exists" },
-          "500": { "description": "Internal Server Error" }
+          "302": { "description": "Redirect to GitHub" }
         }
       }
     },
-    "/auth/login": {
-      "post": {
+    "/auth/callback": {
+      "get": {
         "tags": ["Auth"],
-        "description": "Log in with username and password. Returns a JWT token.",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "required": ["username", "password"],
-              "properties": {
-                "username": { "type": "string", "example": "johndoe" },
-                "password": { "type": "string", "example": "securePassword123" }
-              }
-            }
-          }
-        ],
+        "description": "GitHub OAuth callback. Redirects to / on success.",
         "responses": {
-          "200": { "description": "Login successful, returns JWT token" },
-          "400": { "description": "Missing username or password" },
-          "401": { "description": "Invalid username or password" },
-          "500": { "description": "Internal Server Error" }
+          "302": { "description": "Redirect to /" }
         }
       }
     },
     "/auth/logout": {
-      "post": {
+      "get": {
         "tags": ["Auth"],
-        "description": "Log out (requires valid token).",
-        "security": [{ "Bearer": [] }],
+        "description": "Logs out the current user and destroys the session.",
         "responses": {
-          "200": { "description": "Logged out successfully" },
-          "401": { "description": "Unauthorized" }
+          "302": { "description": "Redirect to /" }
         }
       }
     },
@@ -103,8 +57,7 @@
       },
       "post": {
         "tags": ["Parks"],
-        "description": "Create a new park (requires authentication)",
-        "security": [{ "Bearer": [] }],
+        "description": "Create a new park (requires GitHub OAuth login)",
         "parameters": [
           {
             "name": "body",
@@ -127,7 +80,7 @@
         "responses": {
           "201": { "description": "Created" },
           "400": { "description": "Validation Error" },
-          "401": { "description": "Unauthorized" },
+          "401": { "description": "Unauthorized — must be logged in via GitHub OAuth" },
           "500": { "description": "Internal Server Error" }
         }
       }
@@ -149,8 +102,7 @@
       },
       "put": {
         "tags": ["Parks"],
-        "description": "Update a park (requires authentication)",
-        "security": [{ "Bearer": [] }],
+        "description": "Update a park (requires GitHub OAuth login)",
         "parameters": [
           { "name": "id", "in": "path", "required": true, "type": "string" },
           {
@@ -174,21 +126,20 @@
         "responses": {
           "200": { "description": "OK" },
           "400": { "description": "Validation Error / Invalid ID" },
-          "401": { "description": "Unauthorized" },
+          "401": { "description": "Unauthorized — must be logged in via GitHub OAuth" },
           "500": { "description": "Internal Server Error" }
         }
       },
       "delete": {
         "tags": ["Parks"],
-        "description": "Delete a park (requires authentication)",
-        "security": [{ "Bearer": [] }],
+        "description": "Delete a park (requires GitHub OAuth login)",
         "parameters": [
           { "name": "id", "in": "path", "required": true, "type": "string" }
         ],
         "responses": {
           "204": { "description": "No Content" },
           "400": { "description": "Invalid ID" },
-          "401": { "description": "Unauthorized" },
+          "401": { "description": "Unauthorized — must be logged in via GitHub OAuth" },
           "500": { "description": "Internal Server Error" }
         }
       }
@@ -214,8 +165,7 @@
       },
       "post": {
         "tags": ["Activities"],
-        "description": "Create a new activity (requires authentication)",
-        "security": [{ "Bearer": [] }],
+        "description": "Create a new activity (requires GitHub OAuth login)",
         "parameters": [
           {
             "name": "body",
@@ -237,7 +187,7 @@
         "responses": {
           "201": { "description": "Created" },
           "400": { "description": "Validation Error" },
-          "401": { "description": "Unauthorized" },
+          "401": { "description": "Unauthorized — must be logged in via GitHub OAuth" },
           "500": { "description": "Internal Server Error" }
         }
       }
@@ -259,8 +209,7 @@
       },
       "put": {
         "tags": ["Activities"],
-        "description": "Update an activity (requires authentication)",
-        "security": [{ "Bearer": [] }],
+        "description": "Update an activity (requires GitHub OAuth login)",
         "parameters": [
           { "name": "id", "in": "path", "required": true, "type": "string" },
           {
@@ -283,21 +232,20 @@
         "responses": {
           "200": { "description": "OK" },
           "400": { "description": "Validation Error / Invalid ID" },
-          "401": { "description": "Unauthorized" },
+          "401": { "description": "Unauthorized — must be logged in via GitHub OAuth" },
           "500": { "description": "Internal Server Error" }
         }
       },
       "delete": {
         "tags": ["Activities"],
-        "description": "Delete an activity (requires authentication)",
-        "security": [{ "Bearer": [] }],
+        "description": "Delete an activity (requires GitHub OAuth login)",
         "parameters": [
           { "name": "id", "in": "path", "required": true, "type": "string" }
         ],
         "responses": {
           "204": { "description": "No Content" },
           "400": { "description": "Invalid ID" },
-          "401": { "description": "Unauthorized" },
+          "401": { "description": "Unauthorized — must be logged in via GitHub OAuth" },
           "500": { "description": "Internal Server Error" }
         }
       }

@@ -4,7 +4,12 @@ router.use('/', require('./swagger'));
 
 router.get('/', (req, res) => {
     //#swagger.tags = ['Welcome']
-    res.send('Welcome to the National Parks and Activities API');
+    const loggedIn = req.isAuthenticated();
+    res.send(
+      loggedIn
+        ? `Logged in as ${req.user.displayName || req.user.username}. <a href="/auth/logout">Logout</a>`
+        : 'Welcome to the National Parks and Activities API. <a href="/auth/login">Login with GitHub</a>'
+    );
 });
 
 router.use('/auth', require('./auth'));
